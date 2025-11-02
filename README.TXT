@@ -809,4 +809,35 @@ public class Game
 equivalent switch statement. In the default case, as well as printing a “command not recognized” message,
  print the list of available commands.
 
+31b.
+/**
+     * Given a command, process (that is: execute) the command.
+     * @param command The command to be processed.
+     * @return true If the command ends the game, false otherwise.
+     */
+    private boolean processCommand(Command command) 
+    {
+        boolean wantToQuit = false;
 
+        if(command.isUnknown()) {
+            System.out.println("I don't know what you mean...");
+            return false;
+        }
+
+        String commandWord = command.getCommandWord();//31
+        
+        switch(commandWord) 
+        {
+            case "help" -> printHelp();
+            case "go" -> goRoom(command);
+            case "quit" -> wantToQuit = quit(command);
+            case "look" -> lookAround();
+            case "use" -> use();
+            case "details" -> showCommandDetails();
+            case "back" -> goBack();
+            case "investigate" -> investigate();
+            default -> System.out.println("I don't know what you mean...");
+        }
+
+        return wantToQuit;
+    }
